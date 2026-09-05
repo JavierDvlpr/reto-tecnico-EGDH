@@ -8,7 +8,7 @@ import TarjetaOportunidad from "@/components/TarjetaOportunidad";
 
 export default function DashboardPage() {
   const [markup, setMarkup] = useState(35);
-  const { oportunidades, resumen, cargando } = useDashboard(markup);
+  const { oportunidades, resumen, cargando, error } = useDashboard(markup);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -36,7 +36,17 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {!cargando && (
+        {error && !cargando && (
+          <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-200 text-sm">
+            <p className="font-medium">Aviso de contingencia</p>
+            <p className="text-xs mt-1">
+              La fuente externa de catalogo presento intermitencia. Si se disponia de una sesion previa,
+              se mantendran los valores calculados en memoria.
+            </p>
+          </div>
+        )}
+
+        {!cargando && !error && (
           <div className="space-y-10">
             <section className="space-y-4">
               <div>
